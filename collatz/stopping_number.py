@@ -10,6 +10,7 @@ import numpy as np
 import multiprocessing as mproc
 from time import perf_counter as timer_f
 import matplotlib.pyplot as plt
+import os
 
 def _parse_positive_int(arg, argnum):
     try:
@@ -112,7 +113,9 @@ def _main():
         axs.set_xscale('log')
     axs.text(max_coll[0] + shift_size[0], max_coll[1] + shift_size[1], 'Max: ({}, {})'.format(*max_coll))
     axs.text(min_coll[0] + shift_size[0], min_coll[1] - shift_size[1], 'Min: ({}, {})'.format(*min_coll), verticalalignment='top')
-    fig.savefig('{}.{}.{}.png'.format(_START, _END, _STEP))
+    if not os.path.isdir('./img'):
+        os.mkdir('./img')
+    fig.savefig('./img/{}.{}.{}.png'.format(_START, _END, _STEP))
     end_time = timer_f()
     print('Complete ({:.1f} ms)'.format((end_time - start_time) * 1000))
 

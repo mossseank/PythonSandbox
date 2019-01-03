@@ -6,6 +6,7 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 BOWL_SIZE = 100 # maximum bowl size
 INITIAL_SOUP_AMOUNT = 60 # initial amount of each soup in each bowl
@@ -102,5 +103,7 @@ xlim = plt.gca().get_xlim()
 plt.text(spoonCount-(0.075*(xlim[1]-xlim[0])), 0.225*(ylim[1]-ylim[0])+ylim[0], 'Final: %d spoonfulls' % (spoonCount),
     bbox=dict(facecolor='gray', alpha=0.5))
 plt.legend()
-plt.savefig('%d.%d.%d.%d.soup.png' % (BOWL_SIZE, INITIAL_SOUP_AMOUNT, SPOON_SIZE, mixtype), dpi=300)
+if not os.path.isdir('./img'):
+    os.mkdir('./img')
+plt.savefig('./img/%d.%d.%d.%d.soup.png' % (BOWL_SIZE, INITIAL_SOUP_AMOUNT, SPOON_SIZE, mixtype), dpi=300)
 # plt.show()
