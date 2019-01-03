@@ -1,5 +1,5 @@
 # This script produces a plot of the stopping length of the collatz sequence for a range of inputs
-# No arguments defaults to (1, 1,000,000) as the range
+# No arguments defaults to (1, 100,000) as the range
 #   - 1 arg range (1, arg)
 #   - 2 arg range (arg1, arg2)
 #   - 3 arg range (arg1, arg2), with arg3 being the step
@@ -33,7 +33,7 @@ def _main():
     # Parse the arguments
     arg_len = len(sys.argv)
     _START = 1
-    _END = 1_000_000
+    _END = 100000
     _STEP = 1
     if arg_len == 2:
         _END = _parse_positive_int(sys.argv[1], 1)
@@ -113,9 +113,9 @@ def _main():
         axs.set_xscale('log')
     axs.text(max_coll[0] + shift_size[0], max_coll[1] + shift_size[1], 'Max: ({}, {})'.format(*max_coll))
     axs.text(min_coll[0] + shift_size[0], min_coll[1] - shift_size[1], 'Min: ({}, {})'.format(*min_coll), verticalalignment='top')
-    if not os.path.isdir('./img'):
-        os.mkdir('./img')
-    fig.savefig('./img/{}.{}.{}.png'.format(_START, _END, _STEP))
+    if not os.path.isdir('./img/stop'):
+        os.makedirs('./img/stop')
+    fig.savefig('./img/stop/{}.{}.{}.png'.format(_START, _END, _STEP))
     end_time = timer_f()
     print('Complete ({:.1f} ms)'.format((end_time - start_time) * 1000))
 

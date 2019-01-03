@@ -2,6 +2,8 @@
 # More information on the collatz conjecture can be found at: https://en.wikipedia.org/wiki/Collatz_conjecture
 
 from time import perf_counter
+import numpy as np
+
 
 def collatz(start, limit=None):
     '''
@@ -39,6 +41,30 @@ def collatz(start, limit=None):
     
     end_time = perf_counter()
     return (iter, limit is not None and start != 1 and iter == limit, evens, odds, (end_time - start_time) * 1000)
+
+
+def collatz_gen(start):
+    '''
+    Generates the entire collatz sequence for an input, and returns it as a list.
+
+    :param start int: The non-negative input integer to calculate the sequence for.
+    :returns np.array: The sequence, including the original number, and 1.
+    '''
+    start = int(start)
+    if start < 1:
+        return np.array([-1])
+
+    seq = []
+    current = start
+    while current > 1:
+        seq.append(current)
+        if current % 2 == 0:
+            current = int(current // 2)
+        else:
+            current = int((3 * current) + 1)
+    seq.append(1)
+    return np.array(seq)
+
 
 if __name__ == '__main__':
     for i in range(1, 1001):
